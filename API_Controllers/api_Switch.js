@@ -266,7 +266,7 @@ let sendData = async (req, res) => {
             // console.log(result.NameDevice);
             db = Response_.Type;
             coll = Response_.NameDevice;
-            sample = { Status: Status, TimeModify: new Date(timeformat) }
+            sample = { Status: Status, TimeModify: Date(timeformat) }
             let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ Date: date, Month: month, Year: year }, { $push: { samples: sample } }, { upsert: true });
             // console.log(`${result.insertedCount} new listing(s) created with the following id(s):`);
             // console.log(result.insertedIds);
