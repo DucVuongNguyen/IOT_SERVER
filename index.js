@@ -111,8 +111,8 @@ io.on("connection", (socket) => {
         let Period = (Number(now) - Number(data.time_Alive)) / 1000;
 
         if (Number(Period) > 5) {
-            console.log(data.room)
-            console.log(`checkAlive.............................. ${Period}`)
+            // console.log(data.room)
+            // console.log(`checkAlive.............................. ${Period}`)
             io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 0, NotifyConnect: 'Thiết bị mất kết nối!', time_Alive: 0 });
         }
 
