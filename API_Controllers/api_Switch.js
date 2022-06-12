@@ -251,9 +251,7 @@ let sendData = async (req, res) => {
         // console.log(`Key: ${Key}`);
         let db = `Devices_Manager`;
         let coll = `Devices_`;
-        let timeformat = new Date().toString('en-US', { timeZone: 'Asia/Bangkok' });
-        console.log(`timeformat: ${timeformat}`)
-        let today = new Date(timeformat)
+        let today = new Date()
         console.log(`today: ${today}`)
         let date = today.getDate();
         console.log(`date : ${date}`)
@@ -269,7 +267,7 @@ let sendData = async (req, res) => {
             // console.log(result.NameDevice);
             db = Response_.Type;
             coll = Response_.NameDevice;
-            sample = { Status: Status, TimeModify: timeformat }
+            sample = { Status: Status, TimeModify: new Date() }
             let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ Date: date, Month: month, Year: year }, { $push: { samples: sample } }, { upsert: true });
             // console.log(`${result.insertedCount} new listing(s) created with the following id(s):`);
             // console.log(result.insertedIds);
