@@ -253,7 +253,7 @@ let sendData = async (req, res) => {
         let coll = `Devices_`;
         let timeformat = Date().toLocaleString('en-GB', { timeZone: 'Asia/Bangkok' });
         console.log(`timeformat: ${timeformat}`)
-        let today = Date(timeformat)
+        let today = new Date(timeformat)
         let date = today.getDate();
         console.log(`date : ${date}`)
         let month = today.getMonth() + 1;
