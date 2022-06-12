@@ -8,7 +8,7 @@ var bodyParser = require("body-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const API_Route = require("./API_routes/api_routes");
-const port = 8000;
+const port = process.env.PORT || 8000;
 limit_json_data = 50;
 app.use(bodyParser.json({ limit: `${limit_json_data}mb` }));
 app.use(express.urlencoded({ extended: true }));
