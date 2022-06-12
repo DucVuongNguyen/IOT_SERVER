@@ -251,7 +251,7 @@ let sendData = async (req, res) => {
         // console.log(`Key: ${Key}`);
         let db = `Devices_Manager`;
         let coll = `Devices_`;
-        let today = new Date();
+        let today = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Bangkok' });
         let date = today.getDate();
         let month = today.getMonth() + 1;
         let year = today.getFullYear();
