@@ -266,7 +266,7 @@ let sendData = async (req, res) => {
             // console.log(result.NameDevice);
             db = Response_.Type;
             coll = Response_.NameDevice;
-            sample = { Status: Status, TimeModify: Date() }
+            sample = { Status: Status, TimeModify: today }
             let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ Date: date, Month: month, Year: year }, { $push: { samples: sample } }, { upsert: true });
             // console.log(`${result.insertedCount} new listing(s) created with the following id(s):`);
             // console.log(result.insertedIds);
@@ -380,7 +380,9 @@ let sendData_KeySecurity = async (req, res) => {
         // console.log(`KeySecurity: ${KeySecurity}`);
         let db = `Devices_Manager`;
         let coll = `Devices_`;
-        let today = new Date();
+        let timeformat = Date().toLocaleString('en-GB', { timeZone: 'Asia/Bangkok' });
+        console.log(timeformat)
+        let today = new Date(timeformat)
         let date = today.getDate();
         let month = today.getMonth() + 1;
         let year = today.getFullYear();
@@ -391,7 +393,7 @@ let sendData_KeySecurity = async (req, res) => {
             // console.log(result.NameDevice);
             db = Response_.Type;
             coll = Response_.NameDevice;
-            sample = { Status: Status, TimeModify: Date() }
+            sample = { Status: Status, TimeModify: today }
             let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ Date: date, Month: month, Year: year }, { $push: { samples: sample } }, { upsert: true });
             // console.log(`${result.insertedCount} new listing(s) created with the following id(s):`);
             // console.log(result.insertedIds);
@@ -509,7 +511,8 @@ let keep_Alive = async (req, res) => {
         // console.log(`KeySecurity : ${KeySecurity}`);
         let db = `Devices_Manager`;
         let coll = `Devices_`;
-        let time_now = Date();
+        let timeformat = Date().toLocaleString('en-GB', { timeZone: 'Asia/Bangkok' });
+        let time_now = Date(timeformat);
         await client.connect();
         let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, KeySecurity: KeySecurity });
         let Response_ = result;
