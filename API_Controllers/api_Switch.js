@@ -269,7 +269,7 @@ let sendData = async (req, res) => {
             // console.log(result.NameDevice);
             db = Response_.Type;
             coll = Response_.NameDevice;
-            sample = { Status: Status, TimeModify: new Date(timeformat) }
+            sample = { Status: Status, TimeModify: new Date(timeformat).toString() }
             let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ Date: date, Month: month, Year: year }, { $push: { samples: sample } }, { upsert: true });
             // console.log(`${result.insertedCount} new listing(s) created with the following id(s):`);
             // console.log(result.insertedIds);
@@ -383,12 +383,16 @@ let sendData_KeySecurity = async (req, res) => {
         // console.log(`KeySecurity: ${KeySecurity}`);
         let db = `Devices_Manager`;
         let coll = `Devices_`;
-        let timeformat = Date().toLocaleString('en-GB', { timeZone: 'Asia/Bangkok' });
-        console.log(timeformat)
+        let timeformat = new Date().toString('en-GB', { timeZone: 'Asia/Bangkok' });
+        console.log(`timeformat: ${timeformat}`)
         let today = new Date(timeformat)
+        console.log(`today: ${today}`)
         let date = today.getDate();
+        console.log(`date : ${date}`)
         let month = today.getMonth() + 1;
+        console.log(`month : ${month}`)
         let year = today.getFullYear();
+        console.log(`year : ${year}`)
         await client.connect();
         let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, KeySecurity: KeySecurity });
         let Response_ = result;
@@ -396,7 +400,7 @@ let sendData_KeySecurity = async (req, res) => {
             // console.log(result.NameDevice);
             db = Response_.Type;
             coll = Response_.NameDevice;
-            sample = { Status: Status, TimeModify: Date(timeformat) }
+            sample = { Status: Status, TimeModify: Date(timeformat).toString() }
             let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ Date: date, Month: month, Year: year }, { $push: { samples: sample } }, { upsert: true });
             // console.log(`${result.insertedCount} new listing(s) created with the following id(s):`);
             // console.log(result.insertedIds);
