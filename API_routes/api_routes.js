@@ -12,9 +12,6 @@ const API_Route = (app) => {
     router.post('/sendData_KeySecurity', api_Switch.sendData_KeySecurity);
     router.post('/readData_KeySecurity', api_Switch.readData_KeySecurity);
     router.post('/keepAlive', api_Switch.keep_Alive);
-    router.post('/setSchedule', api_Switch.setSchedule);
-    router.post('/checkAlive', api_Switch.checkAlive);
-    router.post('/loadSchedule', api_Switch.loadSchedule);
     router.post('/updateKey', api_Switch.updateKey);
     router.post('/getKey', api_Switch.getKey);
     router.post('/getTimeline', api_Switch.getTimeline);
