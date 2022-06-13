@@ -47,11 +47,6 @@ io.on("connection", (socket) => {
             io.sockets.in(data.room).emit('initSwitch');
         }
     });
-    socket.on("leave_room", async (data) => {
-        console.log(`leave_room: ${data.room}`);
-        socket.leave(data.room);
-    });
-
     socket.on("getTimeline", async (data) => {
         // console.log(`initSwitch NameDevice: ${data.NameDevice}`);
         // console.log(`initSwitch Key: ${data.Key}`);
@@ -70,8 +65,6 @@ io.on("connection", (socket) => {
         io.sockets.in(data.room).emit('updateStatusSwitch', { DataResult: data.Status, isError: 0 });
         let response = await axios_Switch.sendData(data.NameDevice, data.Key, data.Status);
         io.sockets.in(data.room).emit('updateStatusSwitch', { DataResult: data.Status, isError: 0 });
-
-
     });
     socket.on("handleSwitchKeySecurity", async (data) => {
         // console.log(`initStatusSwitch NameDevice: ${data.NameDevice}`);
@@ -93,31 +86,18 @@ io.on("connection", (socket) => {
         io.sockets.in(data.room).emit('updateStatusSwitch', { DataResult: data.Status, isError: 0 });
     });
 
-    socket.on("keepAlive", async (data) => {
-        time_ = new Date().getTime();
-        // console.log(`time_ .... ${time_}`)
-        // console.log(data.room)
-        // console.log(socket.id)
-        io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 1, NotifyConnect: `Cường độ tín hiệu ${data.RSSI}`, time_Alive: Number(time_) });
-        // let response = await axios_Switch.keepAlive(data.NameDevice, data.KeySecurity, data.RSSI);
-
-    });
-
     socket.on("checkAlive", async (data) => {
         let now = new Date().getTime();
         // console.log(`now ........................${now}`)
         // console.log(data.room)
         // console.log(`data.time_Alive............ ${data.time_Alive}`)
         let Period = (Number(now) - Number(data.time_Alive)) / 1000;
-
         if (Number(Period) > 5) {
             // console.log(data.room)
             // console.log(`checkAlive.............................. ${Period}`)
             io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 0, NotifyConnect: 'Thiết bị mất kết nối!', time_Alive: 0 });
         }
-
     });
-
     socket.on("disconnect", () => {
         console.log(`Client disconnected: ${socket.id}`);
         console.log(socket.rooms);

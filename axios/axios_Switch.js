@@ -43,27 +43,6 @@ let sendData = async (NameDevice, Key, Status) => {
     return data
 }
 
-let readData_KeySecurity = async (NameDevice, KeySecurity) => {
-    let data;
-    try {
-        await axios.post(`${process.env.SERVER_URL}/api/readData_KeySecurity`, {
-            KeySecurity: `${KeySecurity}`,
-            NameDevice: `${NameDevice}`,
-        })
-            .then(res => {
-                // console.log('checkUser');
-                // console.log(res.data);
-                data = res.data
-
-            })
-    } catch (e) {
-        console.log(e)
-    }
-    return data
-
-
-
-}
 
 let sendData_KeySecurity = async (NameDevice, KeySecurity, Status) => {
     let data;
@@ -85,27 +64,6 @@ let sendData_KeySecurity = async (NameDevice, KeySecurity, Status) => {
     return data
 }
 
-
-
-let keepAlive = async (NameDevice, KeySecurity,RSSI) => {
-    let data;
-    try {
-        await axios.post(`${process.env.SERVER_URL}/api/keepAlive`, {
-            KeySecurity: `${KeySecurity}`,
-            NameDevice: `${NameDevice}`,
-            RSSI:`${RSSI}`,
-        })
-            .then(res => {
-                // console.log('checkUser');
-                // console.log(res.data);
-                data = res.data
-
-            })
-    } catch (e) {
-        console.log(e)
-    }
-    return data
-}
 
 let getTimeline = async (NameDevice, Key, Date, Month, Year) => {
     let data;
@@ -132,6 +90,6 @@ let getTimeline = async (NameDevice, Key, Date, Month, Year) => {
 
 }
 module.exports = {
-    readData, sendData,readData_KeySecurity,
-    sendData_KeySecurity,keepAlive,getTimeline
+    readData, sendData,
+    sendData_KeySecurity,getTimeline
 }
