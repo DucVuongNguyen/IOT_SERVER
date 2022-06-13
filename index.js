@@ -86,6 +86,16 @@ io.on("connection", (socket) => {
         io.sockets.in(data.room).emit('updateStatusSwitch', { DataResult: data.Status, isError: 0 });
     });
 
+    socket.on("keepAlive", async (data) => {
+        time_ = new Date().getTime();
+        // console.log(`time_ .... ${time_}`)
+        // console.log(data.room)
+        // console.log(socket.id)
+        io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 1, NotifyConnect: `Cường độ tín hiệu ${data.RSSI}`, time_Alive: Number(time_) });
+        // let response = await axios_Switch.keepAlive(data.NameDevice, data.KeySecurity, data.RSSI);
+
+    });
+
     socket.on("checkAlive", async (data) => {
         let now = new Date().getTime();
         // console.log(`now ........................${now}`)
