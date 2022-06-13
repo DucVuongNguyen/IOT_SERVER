@@ -47,9 +47,9 @@ io.on("connection", (socket) => {
     // }
 // });
 socket.on("Switch", async (data) => {
+    console.log(`User Connected: ${socket.id} connect soccket Switch`);
     switch (data.function) {
-        case 'join_room': {
-            console.log(`User Connected: ${socket.id}`);
+        case 'join_room': {   
             socket.join(data.room);
             console.log(`join_room: ${data.room}`);
             break
