@@ -44,7 +44,6 @@ io.on("connection", (socket) => {
             console.log(`####`);
             console.log(`${data.room}`);
             io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 1, NotifyConnect: 'Thiết bị đang kết nối', time_Alive: new Date().getTime() });
-            io.sockets.in(data.room).emit('initSwitch');
         }
     });
     socket.on("getTimeline", async (data) => {
@@ -108,6 +107,9 @@ io.on("connection", (socket) => {
             io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 0, NotifyConnect: 'Thiết bị mất kết nối!', time_Alive: 0 });
         }
     });
+
+
+
     socket.on("disconnect", () => {
         console.log(`Client disconnected: ${socket.id}`);
         console.log(socket.rooms);

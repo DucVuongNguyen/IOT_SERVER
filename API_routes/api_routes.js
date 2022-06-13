@@ -12,6 +12,7 @@ const API_Route = (app) => {
     router.post('/Switch/readData_KeySecurity', api_Switch.readData_KeySecurity);
     router.post('/Switch/getKey', api_Switch.getKey);
     router.post('/Switch/getTimeline', api_Switch.getTimeline);
+    
     // TemperatureHumiditySensor
     router.post('/TemperatureHumiditySensor/getKey', api_TemperatureHumiditySensor.getKey);
 
