@@ -4,7 +4,7 @@ const axios = require('axios').default;
 let readData = async (NameDevice, Key) => {
     let data;
     try {
-        await axios.post(`${process.env.SERVER_URL}/api/readData`, {
+        await axios.post(`${process.env.SERVER_URL}/api/Switch/readData`, {
             Key: `${Key}`,
             NameDevice: `${NameDevice}`,
         })
@@ -26,7 +26,7 @@ let readData = async (NameDevice, Key) => {
 let sendData = async (NameDevice, Key, Status) => {
     let data;
     try {
-        await axios.post(`${process.env.SERVER_URL}/api/sendData`, {
+        await axios.post(`${process.env.SERVER_URL}/api/Switch/sendData`, {
             Key: `${Key}`,
             NameDevice: `${NameDevice}`,
             Status: `${Status}`
@@ -47,7 +47,7 @@ let sendData = async (NameDevice, Key, Status) => {
 let sendData_KeySecurity = async (NameDevice, KeySecurity, Status) => {
     let data;
     try {
-        await axios.post(`${process.env.SERVER_URL}/api/sendData_KeySecurity`, {
+        await axios.post(`${process.env.SERVER_URL}/api/Switch/sendData_KeySecurity`, {
             KeySecurity: `${KeySecurity}`,
             NameDevice: `${NameDevice}`,
             Status: `${Status}`
@@ -68,7 +68,7 @@ let sendData_KeySecurity = async (NameDevice, KeySecurity, Status) => {
 let getTimeline = async (NameDevice, Key, Date, Month, Year) => {
     let data;
     try {
-        await axios.post(`${process.env.SERVER_URL}/api/getTimeline`, {
+        await axios.post(`${process.env.SERVER_URL}/api/Switch/getTimeline`, {
             NameDevice: `${NameDevice}`,
             Key: `${Key}`,
             Date: `${Date}`,
