@@ -92,12 +92,15 @@ io.on("connection", (socket) => {
                 console.log(`join_room: ${data.room}`);
                 break
             }
+            case 'initStatus': {
+                io.sockets.in(data.room).emit('initStatus');
+            }
             case 'DeviceToApp': {
-                io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
+                io.sockets.in(data.room).emit('SyncStatus', { Humidity: data.Humidity, Temperature: data.Temperature, isError: 0 });
                 // if (Number(data.isSave) === 1) {
                 //     let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
                 // }
-                io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
+                io.sockets.in(data.room).emit('SyncStatus', { Humidity: data.Humidity, Temperature: data.Temperature, isError: 0 });
                 break
             }
             case 'keepAlive': {
