@@ -37,17 +37,9 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`);
-    // socket.on("join_room", async (data) => {
-    //     socket.join(data.room);
-    //     console.log(`join_room: ${data.room}`);
-    // if (Number(data.isDevice) === 1) {
-    //     console.log(`####`);
-    //     console.log(`${data.room}`);
-    //     io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 1, NotifyConnect: 'Thiết bị đang kết nối', time_Alive: new Date().getTime() });
-    // }
-    // });
+
     socket.on("Switch", async (data) => {
-        
+
         switch (data.function) {
             case 'join_room': {
                 console.log(`User Connected: ${socket.id} connect soccket Switch`);
@@ -89,6 +81,35 @@ io.on("connection", (socket) => {
                 break
             }
         }
+
+    });
+
+    socket.on("TemperatureHumiditySensor", async (data) => {
+        switch (data.function) {
+            case 'join_room': {
+                console.log(`User Connected: ${socket.id} connect soccket TemperatureHumiditySensor`);
+                socket.join(data.room);
+                console.log(`join_room: ${data.room}`);
+                break
+            }
+            case 'DeviceToApp': {
+                io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
+                // if (Number(data.isSave) === 1) {
+                //     let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
+                // }
+                io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
+                break
+            }
+            case 'keepAlive': {
+                time_ = new Date().getTime();
+                io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 1, NotifyConnect: `Cường độ tín hiệu ${data.RSSI}`, time_Alive: Number(time_) });
+                break
+            }
+            default: {
+                break
+            }
+        }
+
 
     });
     socket.on("disconnect", () => {
