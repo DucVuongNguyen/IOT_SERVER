@@ -14,6 +14,7 @@ app.use(bodyParser.json({ limit: `${limit_json_data}mb` }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("common"));
 const axios_Switch = require("./axios/axios_Switch");
+const axios_TemperatureHumiditySensor = require("./axios/axios_TemperatureHumiditySensor");
 
 
 API_Route(app);
@@ -97,9 +98,9 @@ io.on("connection", (socket) => {
             }
             case 'DeviceToApp': {
                 io.sockets.in(data.room).emit('SyncStatus', { Humidity: data.Humidity, Temperature: data.Temperature, isError: 0 });
-                // if (Number(data.isSave) === 1) {
-                //     let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
-                // }
+                if (Number(data.isSave) === 1) {
+                    let response = await axios_TemperatureHumiditySensor.sendData_KeySecurity(data.NameDevice, data.Humidity, data.Temperature);
+                }
                 io.sockets.in(data.room).emit('SyncStatus', { Humidity: data.Humidity, Temperature: data.Temperature, isError: 0 });
                 break
             }
