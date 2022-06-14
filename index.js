@@ -99,7 +99,7 @@ io.on("connection", (socket) => {
             case 'DeviceToApp': {
                 io.sockets.in(data.room).emit('SyncStatus', { Humidity: data.Humidity, Temperature: data.Temperature, isError: 0 });
                 if (Number(data.isSave) === 1) {
-                    let response = await axios_TemperatureHumiditySensor.sendData_KeySecurity(data.NameDevice, data.Humidity, data.Temperature);
+                    let response = await axios_TemperatureHumiditySensor.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Humidity, data.Temperature);
                 }
                 io.sockets.in(data.room).emit('SyncStatus', { Humidity: data.Humidity, Temperature: data.Temperature, isError: 0 });
                 break
