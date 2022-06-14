@@ -108,6 +108,74 @@ let sendData_KeySecurity = async (req, res) => {
     }
 }
 
+
+let getTimeline = async (req, res) => {
+
+    const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+    try {
+
+        if (!req.body.NameDevice || !req.body.Key || !req.body.Date || !req.body.Month || !req.body.Year) {
+            return res.status(200).json({
+                message: `Thông tin không để trống!`,
+                isError: 1
+            });
+        }
+        let NameDevice = req.body.NameDevice;
+        let Key = req.body.Key;
+        let Date = req.body.Date;
+        let Month = req.body.Month;
+        let Year = req.body.Year;
+        // console.log(`NamDoc: ${NameDevice}`);
+        // console.log(`Key: ${Key}`);
+        // console.log(`Date: ${Date}`);
+        // console.log(`Month: ${Month}`);
+        // console.log(`Year: ${Year}`);
+        let db = `Devices_Manager`;
+        let coll = `Devices_`;
+        await client.connect();
+        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, Key: Key });
+        // console.log(result);
+        let Response_ = result;
+        if (Response_) {
+            let db = `${Response_.Type}`;
+            let coll = `${NameDevice}`;
+            // console.log(`db: ${db}`)
+            // console.log(`coll: ${coll}`)
+
+            let result = await client.db(`${db}`).collection(`${coll}`).findOne({ Date: Number(Date), Month: Number(Month), Year: Number(Year) });
+            if (result) {
+                return res.status(200).json({
+                    message: `Quá trình hoàn tất `,
+                    isError: 0,
+                    DataResult: result.samples
+                });
+            }
+            else {
+                return res.status(200).json({
+                    message: `Không có dữ liệu`,
+                    isError: 1,
+                });
+            }
+        }
+        else {
+            return res.status(200).json({
+                message: `Thông tin thiết bị không chính xác`,
+                isError: 1,
+            });
+        }
+    } catch (e) {
+        console.error(e);
+        return res.status(200).json({
+            message: `Quá trình kết nối xảy ra lỗi! Vui lòng thực hiện lại.`,
+            isError: 1
+        });
+    } finally {
+        // Close the connection to the MongoDB cluster
+        await client.close();
+    }
+}
+
 module.exports = {
-    getKey,sendData_KeySecurity
+    getKey,sendData_KeySecurity,getTimeline
 }
