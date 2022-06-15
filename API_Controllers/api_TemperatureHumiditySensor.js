@@ -67,13 +67,13 @@ let sendData_KeySecurity = async (req, res) => {
         let db = `Devices_Manager`;
         let coll = `Devices_`;
         let today = new Date()
-        console.log(`today: ${today}`)
+        // console.log(`today: ${today}`)
         let date = today.getDate();
-        console.log(`date : ${date}`)
+        // console.log(`date : ${date}`)
         let month = today.getMonth() + 1;
-        console.log(`month : ${month}`)
+        // console.log(`month : ${month}`)
         let year = today.getFullYear();
-        console.log(`year : ${year}`)
+        // console.log(`year : ${year}`)
         await client.connect();
         let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, KeySecurity: KeySecurity });
         let Response_ = result;
