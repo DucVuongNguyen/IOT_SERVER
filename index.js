@@ -48,8 +48,11 @@ io.on("connection", (socket) => {
                 console.log(`join_room: ${data.room}`);
                 break
             }
-            case 'initStatus': {
-                io.sockets.in(data.room).emit('initStatus_');
+            case 'GetInitStatus': {
+                io.sockets.in(data.room).emit('GetInitStatus');
+            }
+            case 'InitStatusValue': {
+                io.sockets.in(data.room).emit('InitStatusValue', { DataResult: data.Status, isError: 0 });
             }
             case 'DeviceToApp': {
                 io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
