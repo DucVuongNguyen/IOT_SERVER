@@ -56,9 +56,9 @@ io.on("connection", (socket) => {
             }
             case 'DeviceToApp': {
                 io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
-                if (Number(data.isSave) === 1) {
-                    let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
-                }
+
+                let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
+
                 break
             }
             case 'AppToDevice': {
