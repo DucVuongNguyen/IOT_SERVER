@@ -50,23 +50,27 @@ io.on("connection", (socket) => {
             }
             case 'GetInitStatus': {
                 console.log(`GetInitStatus`)
+                console.log(`socket.id: ${socket.id}`)
                 io.sockets.in(data.room).emit('GetInitStatus');
             }
             case 'InitStatusValue': {
                 console.log(`InitStatusValue`)
+                console.log(`socket.id: ${socket.id}`)
                 io.sockets.in(data.room).emit('InitStatusValue', { DataResult: data.Status, isError: 0 });
             }
             case 'DeviceToApp': {
                 console.log(`DeviceToApp`)
                 console.log(`socket.id: ${socket.id}`)
-                console.log(`socket.id: ${data.Status}`)
-                io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
-                let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
+                console.log(`data.Status: ${data.Status}`)
+                if (typeof data.Status !== undefined) {
+                    io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
+                    let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
+                }
                 break
             }
             case 'AppToDevice': {
                 console.log(`AppToDevice`)
-
+                console.log(`socket.id: ${socket.id}`)
                 io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
                 let response = await axios_Switch.sendData(data.NameDevice, data.Key, data.Status);
                 break
@@ -80,6 +84,7 @@ io.on("connection", (socket) => {
                 // console.log(`Date: ${data.Date}`);
                 // console.log(`Month: ${data.Month}`);
                 // console.log(`Year: ${data.Year}`);
+                console.log(`socket.id: ${socket.id}`)
                 response = await axios_Switch.getTimeline(data.NameDevice, data.Key, data.Date, data.Month, data.Year);
                 io.sockets.in(data.room).emit('updateDataTimeline', response);
                 break
