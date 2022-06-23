@@ -56,13 +56,11 @@ io.on("connection", (socket) => {
                 if (Number(data.isSave) === 1) {
                     let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
                 }
-                // io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
                 break
             }
             case 'AppToDevice': {
                 io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
                 let response = await axios_Switch.sendData(data.NameDevice, data.Key, data.Status);
-                // io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
                 break
             }
             case 'keepAlive': {
@@ -101,7 +99,6 @@ io.on("connection", (socket) => {
                 if (Number(data.isSave) === 1) {
                     let response = await axios_TemperatureHumiditySensor.sendData_KeySecurity(data.NameDevice, data.KeySecurity, Number(data.Humidity).toFixed(2), Number(data.Temperature).toFixed(2));
                 }
-                io.sockets.in(data.room).emit('SyncStatus', { Humidity: data.Humidity, Temperature: data.Temperature, isError: 0 });
                 break
             }
             case 'keepAlive': {
