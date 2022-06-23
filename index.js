@@ -49,7 +49,7 @@ io.on("connection", (socket) => {
                 break
             }
             case 'initStatus': {
-                io.sockets.in(data.room).emit('initStatus');
+                io.sockets.in(data.room).emit('initStatus_');
             }
             case 'DeviceToApp': {
                 io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
