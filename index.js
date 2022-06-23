@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
             case 'InitStatusValue': {
                 console.log(`InitStatusValue`)
                 console.log(`socket.id: ${socket.id}`)
-                if (typeof data.Status !== undefined) {
+                if (typeof data.Status !== `undefined`) {
                     io.sockets.in(data.room).emit('InitStatusValue', { DataResult: data.Status, isError: 0 });
                 }
             }
@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
                 console.log(`DeviceToApp`)
                 console.log(`socket.id: ${socket.id}`)
                 console.log(`data.Status: ${data.Status}`)
-                if (typeof data.Status !== undefined) {
+                if (typeof data.Status !== `undefined`) {
                     console.log(`data.ok`)
                     io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
                     let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
@@ -74,7 +74,7 @@ io.on("connection", (socket) => {
             case 'AppToDevice': {
                 console.log(`AppToDevice`)
                 console.log(`socket.id: ${socket.id}`)
-                if (typeof data.Status !== undefined) {
+                if (typeof data.Status !== `undefined`) {
                     io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
                     let response = await axios_Switch.sendData(data.NameDevice, data.Key, data.Status);
                 }
