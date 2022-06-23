@@ -49,9 +49,11 @@ io.on("connection", (socket) => {
                 break
             }
             case 'GetInitStatus': {
+                console.log(`GetInitStatus`)
                 io.sockets.in(data.room).emit('GetInitStatus');
             }
             case 'InitStatusValue': {
+                console.log(`InitStatusValue`)
                 io.sockets.in(data.room).emit('InitStatusValue', { DataResult: data.Status, isError: 0 });
             }
             case 'DeviceToApp': {
