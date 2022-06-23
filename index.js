@@ -65,6 +65,7 @@ io.on("connection", (socket) => {
                 console.log(`socket.id: ${socket.id}`)
                 console.log(`data.Status: ${data.Status}`)
                 if (typeof data.Status !== undefined) {
+                    console.log(`data.ok`)
                     io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
                     let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
                 }
