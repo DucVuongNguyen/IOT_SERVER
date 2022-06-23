@@ -115,14 +115,14 @@ io.on("connection", (socket) => {
             case 'InitStatusValue': {
                 console.log(`InitStatusValue`)
                 console.log(`socket.id: ${socket.id}`)
-                if (typeof data.Status !== `undefined`) {
+                if (typeof data.Humidity !== `undefined` && typeof data.Temperature !== `undefined`) {
                     io.sockets.in(data.room).emit('InitStatusValue', { Humidity: data.Humidity, Temperature: data.Temperature, isError: 0 });
                 }
             }
             case 'DeviceToApp': {
                 console.log(`DeviceToApp`)
                 console.log(`socket.id: ${socket.id}`)
-                if (typeof data.Status !== `undefined`) {
+                if (typeof data.Humidity !== `undefined` && typeof data.Temperature !== `undefined`) {
                     io.sockets.in(data.room).emit('SyncStatus', { Humidity: data.Humidity, Temperature: data.Temperature, isError: 0 });
                     let response = await axios_TemperatureHumiditySensor.sendData_KeySecurity(data.NameDevice, data.KeySecurity, Number(data.Humidity).toFixed(2), Number(data.Temperature).toFixed(2));
                 }
