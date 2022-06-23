@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
                 break
             }
             case 'AppToDevice': {
-                // io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
+                io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
                 let response = await axios_Switch.sendData(data.NameDevice, data.Key, data.Status);
                 break
             }
