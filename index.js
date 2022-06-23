@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
             }
             case 'DeviceToApp': {
                 console.log(`DeviceToApp`)
-                console.log(`socket.id`)
+                console.log(`socket.id: ${socket.id}`)
                 io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
                 let response = await axios_Switch.sendData_KeySecurity(data.NameDevice, data.KeySecurity, data.Status);
                 break
