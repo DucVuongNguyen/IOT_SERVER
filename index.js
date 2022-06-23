@@ -74,9 +74,9 @@ io.on("connection", (socket) => {
                 break
             }
             case 'getTimeline': {
-                console.log(`Date: ${data.Date}`);
-                console.log(`Month: ${data.Month}`);
-                console.log(`Year: ${data.Year}`);
+                // console.log(`Date: ${data.Date}`);
+                // console.log(`Month: ${data.Month}`);
+                // console.log(`Year: ${data.Year}`);
                 response = await axios_Switch.getTimeline(data.NameDevice, data.Key, data.Date, data.Month, data.Year);
                 io.sockets.in(data.room).emit('updateDataTimeline', response);
                 break
@@ -112,9 +112,9 @@ io.on("connection", (socket) => {
                 break
             }
             case 'getTimeline': {
-                console.log(`Date: ${data.Date}`);
-                console.log(`Month: ${data.Month}`);
-                console.log(`Year: ${data.Year}`);
+                // console.log(`Date: ${data.Date}`);
+                // console.log(`Month: ${data.Month}`);
+                // console.log(`Year: ${data.Year}`);
                 response = await axios_Switch.getTimeline(data.NameDevice, data.Key, data.Date, data.Month, data.Year);
                 io.sockets.in(data.room).emit('updateDataTimeline', response);
                 break
