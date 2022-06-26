@@ -188,7 +188,7 @@ let renameDevice = async (req, res) => {
                 let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
 
                 return res.status(200).json({
-                    message: `Thiết bị đã được xóa`,
+                    message: `Tên thiết bị đã được thay đổi`,
                     isError: 0,
                     user: result
                 });
