@@ -130,7 +130,7 @@ io.on("connection", (socket) => {
             }
             case 'keepAlive': {
                 time_ = new Date().getTime();
-                io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 1, RSSI:data.RSSI, time_Alive: Number(time_) });
+                io.sockets.in(data.room).emit('isDeviceConnect', { isDeviceConnect: 1, RSSI: data.RSSI, time_Alive: Number(time_) });
                 break
             }
             case 'getTimeline': {

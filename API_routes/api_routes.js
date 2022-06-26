@@ -23,6 +23,8 @@ const API_Route = (app) => {
     // user
     router.post('/checkUser', api_Check.checkUser);
     router.post('/checkDevice', api_Check.checkDevice);
+    router.post('/Signup', api_Check.Signup);
+
     //add
     router.post('/addDevice', api_Device.addDevice);
     router.post('/deleteDevice', api_Device.deleteDevice);
