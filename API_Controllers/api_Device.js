@@ -155,9 +155,79 @@ let deleteDevice = async (req, res) => {
 
 }
 
+let renameDevice = async (req, res) => {
+    const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+    try {
+
+        if (!req.body.UserName || !req.body.Password || !req.body.NameDevice || !req.body.RenameDevice) {
+            return res.status(200).json({
+                message: `Thông tin không để trống!`,
+                isError: 1
+            });
+        }
+        let UserName = req.body.UserName;
+        let Password = req.body.Password;
+        let NameDevice = req.body.NameDevice;
+        let RenameDevice = req.body.RenameDevice;
+        let db = `ManagerAccounts`;
+        let coll = `Users`;
+        await client.connect();
+        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
+        let Response_ = result;
+        if (Response_) {
+            let DevicesArr = Response_.Devices;
+            let Device = DevicesArr.filter((device) => {
+                if (device.NameDevice === NameDevice) {
+                    device.NameDeviceCustom = RenameDevice
+
+                }
+                return device;
+            });
+            let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ UserName: UserName, Password: Password }, { $set: { Devices: Device } });
+            if (result) {
+                let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
+
+                return res.status(200).json({
+                    message: `Thiết bị đã được xóa`,
+                    isError: 0,
+                    user: result
+                });
+            }
+            else {
+                return res.status(200).json({
+                    message: `Quá trình xảy ra lỗi`,
+                    isError: 1
+                });
+            }
+
+
+
+        }
+        else {
+            return res.status(200).json({
+                message: `Quá trình xảy ra lỗi!`,
+                isError: 1
+            });
+
+        }
+
+    } catch (e) {
+        console.error(e);
+        return res.status(200).json({
+            message: `Quá trình xảy ra lỗi!`,
+            isError: 0
+        });
+    } finally {
+        // Close the connection to the MongoDB cluster
+        await client.close();
+    }
+
+
+}
+
 
 
 module.exports = {
-    addDevice, deleteDevice
+    addDevice, deleteDevice,renameDevice
 
 }
