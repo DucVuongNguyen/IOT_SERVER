@@ -67,7 +67,7 @@ let Signup = async (req, res) => {
             let result = await client.db(`${db}`).collection(`${coll}`).insertOne({ UserName: UserName, Password: Password, Devices: [] });
             if (!result) {
                 return res.status(200).json({
-                    message: `Tài khoản đã được tạo!`,
+                    message: `Đăng kí tài khoản thành công!`,
                     isError: 0
 
                 });
