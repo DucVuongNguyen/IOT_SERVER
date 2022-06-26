@@ -54,7 +54,6 @@ let Signup = async (req, res) => {
         if (!req.body.UserName || !req.body.Password) {
             return res.status(200).json({
                 message: `Thông tin đăng nhập không bỏ trống!`,
-                checkLogin: 0,
                 isError: 1
             });
         }
@@ -82,7 +81,6 @@ let Signup = async (req, res) => {
         } else {
             return res.status(200).json({
                 message: `Tên tài khoản đã tồn tại`,
-                checkLogin: 0,
                 isError: 1
             });
         }
