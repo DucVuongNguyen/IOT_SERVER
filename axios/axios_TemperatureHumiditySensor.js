@@ -5,7 +5,7 @@ const axios = require('axios').default;
 let sendData = async (NameDevice, Key, Humidity, Temperature) => {
     let data;
     try {
-        await axios.post(`${process.env.SERVER_URL}/api/TemperatureHumiditySensor/sendData_KeySecurity`, {
+        await axios.post(`${process.env.SERVER_URL}/api/TemperatureHumiditySensor/sendData`, {
             Key: `${Key}`,
             NameDevice: `${NameDevice}`,
             Humidity: `${Humidity}`,
