@@ -46,5 +46,5 @@ let getTimeline = async (NameDevice, Key, Date, Month, Year) => {
 }
 
 module.exports = {
-    sendData_KeySecurity,getTimeline
+    sendData,getTimeline
 }
