@@ -44,7 +44,25 @@ let getTimeline = async (NameDevice, Key, Date, Month, Year) => {
     }
     return data
 }
+let getKey = async (NameDevice, KeySecurity) => {
+    let data;
+    try {
+        await axios.post(`${process.env.SERVER_URL}/api/TemperatureHumiditySensor/getKey`, {
+            KeySecurity: `${KeySecurity}`,
+            NameDevice: `${NameDevice}`,
+        })
+            .then(res => {
+                // console.log('checkUser');
+                // console.log(res.data);
+                data = res.data
+
+            })
+    } catch (e) {
+        console.log(e)
+    }
+    return data
+}
 
 module.exports = {
-    sendData,getTimeline
+    sendData,getTimeline,getKey
 }

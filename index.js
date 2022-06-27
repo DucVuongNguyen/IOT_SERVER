@@ -146,8 +146,17 @@ io.on("connection", (socket) => {
                 // console.log(`Date: ${data.Date}`);
                 // console.log(`Month: ${data.Month}`);
                 // console.log(`Year: ${data.Year}`);
-                response = await axios_Switch.getTimeline(data.NameDevice, data.Key, data.Date, data.Month, data.Year);
+                response = await axios_TemperatureHumiditySensor.getTimeline(data.NameDevice, data.Key, data.Date, data.Month, data.Year);
                 io.sockets.in(data.room).emit('updateDataTimeline', response);
+                break
+            }
+            case 'getKey_socket': {
+                // console.log(`Date: ${data.Date}`);
+                // console.log(`Month: ${data.Month}`);
+                // console.log(`Year: ${data.Year}`);
+                console.log(`socket.id: ${socket.id}`)
+                response = await axios_TemperatureHumiditySensor.getKey(data.NameDevice, data.KeySecurity);
+                io.sockets.in(data.room).emit('Key_socket', response);
                 break
             }
             default: {
