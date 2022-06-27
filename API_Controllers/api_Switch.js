@@ -55,7 +55,7 @@ let updateKey = async (req, res) => {
 
     const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
     try {
-        if (!req.body.Key || !req.body.NameDevice || !req.body.NewKey) {
+        if (!req.body.Key || !req.body.NameDevice || !req.body.NewKey || !req.body.UserName || !req.body.Password) {
             return res.status(200).json({
                 message: `Thông tin không để trống`,
                 isError: 1
@@ -64,24 +64,63 @@ let updateKey = async (req, res) => {
         let NameDevice = req.body.NameDevice;
         let Key = req.body.Key;
         let NewKey = req.body.NewKey;
+        let UserName = req.body.UserName;
+        let Password = req.body.Password;
         // console.log(`NamDoc: ${NameDevice}`);
         // console.log(`KeySecurity : ${KeySecurity}`);
         let db = `Devices_Manager`;
         let coll = `Devices_`;
 
         await client.connect();
-        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, Key: Key});
+        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, Key: Key });
         let Response_ = result;
         if (Response_) {
 
-
+            let db = `ManagerAccounts`;
+            let coll = `Users`;
             let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ NameDevice: NameDevice }, { $set: { Key: NewKey, TimeModify: Date() } });
             // console.log(`${result.matchedCount} document(s) matched the query criteria.`);
             // console.log(`${result.modifiedCount} document(s) was/were updated.`);
-            return res.status(200).json({
-                message: `Thiết bị ${NameDevice} cập nhật Key thành công`,
-                isError: 0
-            });
+            if (result) {
+                let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
+                if (result) {
+                    let DevicesArr = result.Devices;
+                    let Device = DevicesArr.filter((device) => {
+                        if (device.NameDevice === NameDevice) {
+                            device.Key = NewKey
+
+                        }
+                        return device;
+                    });
+                    let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ UserName: UserName, Password: Password }, { $set: { Devices: Device } });
+                    if (result) {
+                        return res.status(200).json({
+                            message: `Cật nhật Key thành công`,
+                            isError: 0,
+                            Devices: Device
+                        });
+                    }
+                    else {
+                        return res.status(200).json({
+                            message: `Quá trình xảy ra lỗi`,
+                            isError: 1
+                        });
+                    }
+
+                } else {
+                    return res.status(200).json({
+                        message: `Quá trình kết nối xảy ra lỗi! Vui lòng thực hiện lại.`,
+                        isError: 1
+                    });
+                }
+            }
+            else {
+                return res.status(200).json({
+                    message: `Quá trình kết nối xảy ra lỗi! Vui lòng thực hiện lại.`,
+                    isError: 1
+                });
+
+            }
 
         }
         else {
@@ -354,5 +393,5 @@ let getTimeline = async (req, res) => {
 
 module.exports = {
     resetKey, sendData, readData,
-    getKey, getTimeline,updateKey
+    getKey, getTimeline, updateKey
 }
