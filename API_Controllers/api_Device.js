@@ -330,7 +330,7 @@ let updateKey = async (req, res) => {
 
     const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
     try {
-        if (!req.body.Key || !req.body.NameDevice || !req.body.NewKey || !req.body.UserName || !req.body.Password) {
+        if (!req.body.Key || !req.body.NameDevice || !req.body.UserName || !req.body.Password) {
             return res.status(200).json({
                 message: `Thông tin không để trống`,
                 isError: 1
@@ -518,6 +518,6 @@ let resetKey = async (req, res) => {
 }
 
 module.exports = {
-    addDevice, deleteDevice, renameDevice, changeKey, getKey, resetKey,updateKey
+    addDevice, deleteDevice, renameDevice, changeKey, getKey, resetKey, updateKey
 
 }
