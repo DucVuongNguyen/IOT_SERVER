@@ -224,7 +224,7 @@ let renameDevice = async (req, res) => {
 
 
 }
-let updateKey = async (req, res) => {
+let changeKey = async (req, res) => {
 
     const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
     try {
@@ -272,7 +272,7 @@ let updateKey = async (req, res) => {
                         let Response____ = result;
                         if (Response____) {
                             return res.status(200).json({
-                                message: `Tên thiết bị đã được thay đổi`,
+                                message: `Key thiết bị đã được thay đổi`,
                                 isError: 0,
                                 user: Response____
                             });
@@ -427,9 +427,7 @@ let resetKey = async (req, res) => {
     }
 }
 
-
-
 module.exports = {
-    addDevice, deleteDevice, renameDevice, updateKey, getKey, resetKey
+    addDevice, deleteDevice, renameDevice, changeKey, getKey, resetKey
 
 }

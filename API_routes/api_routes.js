@@ -24,7 +24,7 @@ const API_Route = (app) => {
     router.post('/deleteDevice', api_Device.deleteDevice);
     router.post('/renameDevice', api_Device.renameDevice);
     router.post('/getKey', api_Device.getKey);
-    router.post('/updateKey', api_Device.updateKey);
+    router.post('/changeKey', api_Device.changeKey);
     router.post('/resetKey', api_Device.resetKey);
 
     return app.use('/api', router)
