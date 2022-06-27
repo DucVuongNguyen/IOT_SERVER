@@ -65,7 +65,7 @@ io.on("connection", (socket) => {
                 console.log(`socket.id: ${socket.id}`)
                 if (typeof data.Status !== `undefined`) {
                     io.sockets.in(data.room).emit('SyncStatus', { DataResult: data.Status, isError: 0 });
-                    let response = await axios_Switch.sendData_sendData(data.NameDevice, data.Key, data.Status);
+                    let response = await axios_Switch.sendData(data.NameDevice, data.Key, data.Status);
                 }
                 break
             }
