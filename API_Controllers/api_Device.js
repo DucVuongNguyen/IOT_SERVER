@@ -169,10 +169,10 @@ let renameDevice = async (req, res) => {
         let Password = req.body.Password;
         let NameDevice = req.body.NameDevice;
         let RenameDevice = req.body.RenameDevice;
-        let db = `ManagerAccounts`;
-        let coll = `Users`;
+        let db = `Devices_Manager`;
+        let coll = `Devices_`;
         await client.connect();
-        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
+        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, Key: Key});
         let Response_ = result;
         if (Response_) {
             let DevicesArr = Response_.Devices;
