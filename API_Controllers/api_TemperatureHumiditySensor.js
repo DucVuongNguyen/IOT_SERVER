@@ -47,12 +47,12 @@ let getKey = async (req, res) => {
         await client.close();
     }
 }
-let sendData_KeySecurity = async (req, res) => {
+let sendData = async (req, res) => {
     const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
     try {
 
-        if (!req.body.NameDevice || !req.body.KeySecurity || !req.body.Humidity || !req.body.Temperature) {
+        if (!req.body.NameDevice || !req.body.Key || !req.body.Humidity || !req.body.Temperature) {
             return res.status(200).json({
                 message: `Thông tin không để trống.`,
                 isError: 1
@@ -75,7 +75,7 @@ let sendData_KeySecurity = async (req, res) => {
         let year = today.getFullYear();
         // console.log(`year : ${year}`)
         await client.connect();
-        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, KeySecurity: KeySecurity });
+        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, Key: Key });
         let Response_ = result;
         if (Response_) {
             // console.log(result.NameDevice);
