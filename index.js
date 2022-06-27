@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("common"));
 const axios_Switch = require("./axios/axios_Switch");
 const axios_TemperatureHumiditySensor = require("./axios/axios_TemperatureHumiditySensor");
+const axios_Device = require("./axios/axios_Device");
 
 
 API_Route(app);
@@ -97,7 +98,7 @@ io.on("connection", (socket) => {
                 // console.log(`Month: ${data.Month}`);
                 // console.log(`Year: ${data.Year}`);
                 console.log(`socket.id: ${socket.id}`)
-                response = await axios_Switch.getKey(data.NameDevice, data.KeySecurity);
+                response = await axios_Device.getKey(data.NameDevice, data.KeySecurity);
                 io.sockets.in(data.room).emit('Key_socket', response);
                 break
             }
@@ -155,7 +156,7 @@ io.on("connection", (socket) => {
                 // console.log(`Month: ${data.Month}`);
                 // console.log(`Year: ${data.Year}`);
                 console.log(`socket.id: ${socket.id}`)
-                response = await axios_TemperatureHumiditySensor.getKey(data.NameDevice, data.KeySecurity);
+                response = await axios_Device.getKey(data.NameDevice, data.KeySecurity);
                 io.sockets.in(data.room).emit('Key_socket', response);
                 break
             }

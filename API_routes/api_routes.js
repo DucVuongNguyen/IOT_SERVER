@@ -7,30 +7,24 @@ const api_TemperatureHumiditySensor = require("../API_Controllers/api_Temperatur
 const API_Route = (app) => {
     // switch
     router.post('/Switch/sendData', api_Switch.sendData);
-    router.post('/Switch/resetKey', api_Switch.resetKey);
     router.post('/Switch/readData', api_Switch.readData);
-    router.post('/Switch/getKey', api_Switch.getKey);
     router.post('/Switch/getTimeline', api_Switch.getTimeline);
-    router.post('/Switch/updateKey', api_Switch.updateKey);
 
     // TemperatureHumiditySensor
-    router.post('/TemperatureHumiditySensor/getKey', api_TemperatureHumiditySensor.getKey);
-    router.post('/TemperatureHumiditySensor/ressetKey', api_TemperatureHumiditySensor.resetKey);
     router.post('/TemperatureHumiditySensor/sendData', api_TemperatureHumiditySensor.sendData);
     router.post('/TemperatureHumiditySensor/getTimeline', api_TemperatureHumiditySensor.getTimeline);
-    router.post('/TemperatureHumiditySensor/updateKey', api_TemperatureHumiditySensor.updateKey);
-
-
 
     // user
     router.post('/checkUser', api_Check.checkUser);
     router.post('/checkDevice', api_Check.checkDevice);
     router.post('/Signup', api_Check.Signup);
 
-    //add
+    //devices
     router.post('/addDevice', api_Device.addDevice);
     router.post('/deleteDevice', api_Device.deleteDevice);
     router.post('/renameDevice', api_Device.renameDevice);
+    router.post('/getKey', api_Device.getKey);
+    router.post('/updateKey', api_Device.updateKey);
 
     return app.use('/api', router)
 
