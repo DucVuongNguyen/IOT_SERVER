@@ -75,12 +75,11 @@ let updateKey = async (req, res) => {
         let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, Key: Key });
         let Response_ = result;
         if (Response_) {
-
-            let db = `ManagerAccounts`;
-            let coll = `Users`;
             let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ NameDevice: NameDevice }, { $set: { Key: NewKey, TimeModify: Date() } });
             // console.log(`${result.matchedCount} document(s) matched the query criteria.`);
             // console.log(`${result.modifiedCount} document(s) was/were updated.`);
+            let db = `ManagerAccounts`;
+            let coll = `Users`;
             if (result) {
                 let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
                 let Response__ = result;
