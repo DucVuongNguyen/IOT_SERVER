@@ -393,7 +393,7 @@ let resetKey = async (req, res) => {
         let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, KeySecurity: KeySecurity });
         let Response_ = result;
         if (Response_) {
-            let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ UserName: UserName, Password: Password }, { $set: { Key: 'admin' } });
+            let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ NameDevice: NameDevice, KeySecurity: KeySecurity }, { $set: { Key: 'admin' } });
             if (result) {
                 return res.status(200).json({
                     message: `ResetKey thành công`,
@@ -430,6 +430,6 @@ let resetKey = async (req, res) => {
 
 
 module.exports = {
-    addDevice, deleteDevice, renameDevice, updateKey, getKey,resetKey
+    addDevice, deleteDevice, renameDevice, updateKey, getKey, resetKey
 
 }
