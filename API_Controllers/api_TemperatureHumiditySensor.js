@@ -59,7 +59,7 @@ let sendData = async (req, res) => {
             });
         }
         let NameDevice = req.body.NameDevice;
-        let KeySecurity = req.body.KeySecurity;
+        let Key = req.body.Key;
         let Temperature = req.body.Temperature;
         let Humidity = req.body.Humidity;
         // console.log(`NamDoc: ${NameDevice}`);
@@ -177,5 +177,5 @@ let getTimeline = async (req, res) => {
 }
 
 module.exports = {
-    getKey,sendData_KeySecurity,getTimeline
+    getKey,sendData,getTimeline
 }

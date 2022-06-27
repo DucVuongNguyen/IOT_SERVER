@@ -2,11 +2,11 @@ const dotenv = require("dotenv");
 dotenv.config();
 const axios = require('axios').default;
 
-let sendData_KeySecurity = async (NameDevice, KeySecurity, Humidity, Temperature) => {
+let sendData = async (NameDevice, Key, Humidity, Temperature) => {
     let data;
     try {
         await axios.post(`${process.env.SERVER_URL}/api/TemperatureHumiditySensor/sendData_KeySecurity`, {
-            KeySecurity: `${KeySecurity}`,
+            Key: `${Key}`,
             NameDevice: `${NameDevice}`,
             Humidity: `${Humidity}`,
             Temperature: `${Temperature}`,

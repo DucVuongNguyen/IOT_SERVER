@@ -15,7 +15,7 @@ const API_Route = (app) => {
     
     // TemperatureHumiditySensor
     router.post('/TemperatureHumiditySensor/getKey', api_TemperatureHumiditySensor.getKey);
-    router.post('/TemperatureHumiditySensor/sendData_KeySecurity', api_TemperatureHumiditySensor.sendData_KeySecurity);
+    router.post('/TemperatureHumiditySensor/sendData', api_TemperatureHumiditySensor.sendData);
     router.post('/TemperatureHumiditySensor/getTimeline', api_TemperatureHumiditySensor.getTimeline);
 
 
