@@ -4,7 +4,7 @@ const axios = require('axios').default;
 let getKey = async (NameDevice, KeySecurity) => {
     let data;
     try {
-        await axios.post(`${process.env.SERVER_URL}/api/Switch/getKey`, {
+        await axios.post(`${process.env.SERVER_URL}/api/getKey`, {
             KeySecurity: `${KeySecurity}`,
             NameDevice: `${NameDevice}`,
         })
