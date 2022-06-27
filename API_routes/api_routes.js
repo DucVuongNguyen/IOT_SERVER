@@ -25,6 +25,7 @@ const API_Route = (app) => {
     router.post('/renameDevice', api_Device.renameDevice);
     router.post('/getKey', api_Device.getKey);
     router.post('/updateKey', api_Device.updateKey);
+    router.post('/resetKey', api_Device.resetKey);
 
     return app.use('/api', router)
 
