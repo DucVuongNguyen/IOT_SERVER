@@ -92,6 +92,15 @@ io.on("connection", (socket) => {
                 io.sockets.in(data.room).emit('updateDataTimeline', response);
                 break
             }
+            case 'getKey_socket': {
+                // console.log(`Date: ${data.Date}`);
+                // console.log(`Month: ${data.Month}`);
+                // console.log(`Year: ${data.Year}`);
+                console.log(`socket.id: ${socket.id}`)
+                response = await axios_Switch.getKey(data.NameDevice, data.KeySecurity);
+                io.sockets.in(data.room).emit('Key_socket', response);
+                break
+            }
             default: {
                 break
             }
