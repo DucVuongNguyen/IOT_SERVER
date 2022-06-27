@@ -326,6 +326,96 @@ let changeKey = async (req, res) => {
     }
 }
 
+let updateKey = async (req, res) => {
+
+    const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+    try {
+        if (!req.body.Key || !req.body.NameDevice || !req.body.NewKey || !req.body.UserName || !req.body.Password) {
+            return res.status(200).json({
+                message: `Thông tin không để trống`,
+                isError: 1
+            });
+        }
+        let NameDevice = req.body.NameDevice;
+        let Key = req.body.Key;
+        let UserName = req.body.UserName;
+        let Password = req.body.Password;
+        // console.log(`NamDoc: ${NameDevice}`);
+        // console.log(`KeySecurity : ${KeySecurity}`);
+        let db = `Devices_Manager`;
+        let coll = `Devices_`;
+
+        await client.connect();
+        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, Key: Key });
+        let Response_ = result;
+        if (Response_) {
+
+            let db = `ManagerAccounts`;
+            let coll = `Users`;
+            let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
+            let Response__ = result;
+            if (Response__) {
+                let DevicesArr = Response__.Devices;
+                let Device = DevicesArr.filter((device) => {
+                    if (device.NameDevice === NameDevice) {
+                        device.Key = Key
+
+                    }
+                    return device;
+                });
+                let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ UserName: UserName, Password: Password }, { $set: { Devices: Device } });
+                let Response___ = result;
+                if (Response___) {
+                    let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
+                    let Response____ = result;
+                    if (Response____) {
+                        return res.status(200).json({
+                            message: `Key thiết bị đã được cập nhật`,
+                            isError: 0,
+                            user: Response____
+                        });
+                    }
+                    else {
+                        return res.status(200).json({
+                            message: `Quá trình xảy ra lỗi`,
+                            isError: 1
+                        });
+                    }
+
+                }
+                else {
+                    return res.status(200).json({
+                        message: `Quá trình xảy ra lỗi`,
+                        isError: 1
+                    });
+                }
+
+            } else {
+                return res.status(200).json({
+                    message: `Quá trình kết nối xảy ra lỗi! Vui lòng thực hiện lại.`,
+                    isError: 1
+                });
+            }
+
+        }
+        else {
+            return res.status(200).json({
+                message: `Thông tin thiết bị không chính xác`,
+                isError: 1
+            });
+        }
+    } catch (e) {
+        console.error(e);
+        return res.status(200).json({
+            message: `Quá trình kết nối xảy ra lỗi! Vui lòng thực hiện lại.`,
+            isError: 1
+        });
+    } finally {
+        // Close the connection to the MongoDB cluster
+        await client.close();
+    }
+}
+
 let getKey = async (req, res) => {
 
     const client = new MongoClient(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -428,6 +518,6 @@ let resetKey = async (req, res) => {
 }
 
 module.exports = {
-    addDevice, deleteDevice, renameDevice, changeKey, getKey, resetKey
+    addDevice, deleteDevice, renameDevice, changeKey, getKey, resetKey,updateKey
 
 }
