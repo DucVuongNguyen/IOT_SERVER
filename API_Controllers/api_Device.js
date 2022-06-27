@@ -172,7 +172,7 @@ let renameDevice = async (req, res) => {
         let db = `Devices_Manager`;
         let coll = `Devices_`;
         await client.connect();
-        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, Key: Key});
+        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ NameDevice: NameDevice, Key: Key });
         let Response_ = result;
         if (Response_) {
             let DevicesArr = Response_.Devices;
@@ -268,11 +268,22 @@ let updateKey = async (req, res) => {
                     let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ UserName: UserName, Password: Password }, { $set: { Devices: Device } });
                     let Response___ = result;
                     if (Response___) {
-                        return res.status(200).json({
-                            message: `Cật nhật Key thành công`,
-                            isError: 0,
-                            user: result
-                        });
+                        let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
+                        let Response____ = result;
+                        if (Response____) {
+                            return res.status(200).json({
+                                message: `Tên thiết bị đã được thay đổi`,
+                                isError: 0,
+                                user: Response____
+                            });
+                        }
+                        else {
+                            return res.status(200).json({
+                                message: `Quá trình xảy ra lỗi`,
+                                isError: 1
+                            });
+                        }
+
                     }
                     else {
                         return res.status(200).json({
@@ -364,6 +375,6 @@ let getKey = async (req, res) => {
 
 
 module.exports = {
-    addDevice, deleteDevice,renameDevice,updateKey,getKey
+    addDevice, deleteDevice, renameDevice, updateKey, getKey
 
 }
