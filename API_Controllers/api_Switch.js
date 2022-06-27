@@ -78,13 +78,13 @@ let updateKey = async (req, res) => {
             let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ NameDevice: NameDevice }, { $set: { Key: NewKey, TimeModify: Date() } });
             // console.log(`${result.matchedCount} document(s) matched the query criteria.`);
             // console.log(`${result.modifiedCount} document(s) was/were updated.`);
-            let db = `ManagerAccounts`;
-            let coll = `Users`;
             if (result) {
+                let db = `ManagerAccounts`;
+                let coll = `Users`;
                 let result = await client.db(`${db}`).collection(`${coll}`).findOne({ UserName: UserName, Password: Password });
                 let Response__ = result;
-                if ( Response__) {
-                    let DevicesArr =  Response__.Devices;
+                if (Response__) {
+                    let DevicesArr = Response__.Devices;
                     let Device = DevicesArr.filter((device) => {
                         if (device.NameDevice === NameDevice) {
                             device.Key = NewKey
@@ -93,7 +93,7 @@ let updateKey = async (req, res) => {
                         return device;
                     });
                     let result = await client.db(`${db}`).collection(`${coll}`).updateOne({ UserName: UserName, Password: Password }, { $set: { Devices: Device } });
-                let Response___ = result;
+                    let Response___ = result;
                     if (Response___) {
                         return res.status(200).json({
                             message: `Cật nhật Key thành công`,
