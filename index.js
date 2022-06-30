@@ -123,6 +123,12 @@ io.on("connection", (socket) => {
                 console.log(`join_room: ${data.room}`);
                 break
             }
+            case 'leave_room': {
+                console.log(`socket.id: ${socket.id}`)
+                socket.leave(data.room);
+                console.log(`leave_room: ${data.room}`);
+                break
+            }
             case 'GetInitStatus': {
                 console.log(`GetInitStatus`)
                 console.log(`socket.id: ${socket.id}`)
