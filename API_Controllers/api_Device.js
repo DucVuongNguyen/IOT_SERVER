@@ -169,7 +169,7 @@ let renameDevice = async (req, res) => {
         let Password = req.body.Password;
         let NameDevice = req.body.NameDevice;
         let RenameDevice = req.body.RenameDevice;
-        
+
         let db = `ManagerAccounts`;
         let coll = `Users`;
         await client.connect();
