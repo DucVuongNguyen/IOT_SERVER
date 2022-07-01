@@ -19,6 +19,25 @@ let getKey = async (NameDevice, KeySecurity) => {
     }
     return data
 }
+
+let checkDevice = async (NameDevice, Key) => {
+    let data;
+    try {
+        await axios.post(`${process.env.SERVER_URL}/api/checkDevice`, {
+            Key: `${Key}`,
+            NameDevice: `${NameDevice}`,
+        })
+            .then(res => {
+                // console.log('checkUser');
+                // console.log(res.data);
+                data = res.data
+
+            })
+    } catch (e) {
+        console.log(e)
+    }
+    return data
+}
 module.exports = {
-    getKey
+    getKey,checkDevice
 }
