@@ -28,7 +28,7 @@ const server = http.createServer(app);
 
 const io = require("socket.io")(server, {
     cors: {
-        origin: "https://vhome-iot.surge.sh",
+        origin: "https://vhome-iot.surge.sh","wss://vhome-iot.surge.sh/ws",
         methods: ["GET", "POST"],
     },
 });
