@@ -103,7 +103,7 @@ io.on("connection", (socket) => {
                 // console.log(`Date: ${data.Date}`);
                 // console.log(`Month: ${data.Month}`);
                 // console.log(`Year: ${data.Year}`);
-                console.log(`socket.id: ${socket.id}`)
+                // console.log(`socket.id: ${socket.id}`)
                 response = await axios_Device.getKey(data.NameDevice, data.KeySecurity);
                 io.sockets.in(data.room).emit('Key_socket', response);
                 break
@@ -167,7 +167,7 @@ io.on("connection", (socket) => {
                 // console.log(`Date: ${data.Date}`);
                 // console.log(`Month: ${data.Month}`);
                 // console.log(`Year: ${data.Year}`);
-                console.log(`socket.id: ${socket.id}`)
+                // console.log(`socket.id: ${socket.id}`)
                 response = await axios_Device.getKey(data.NameDevice, data.KeySecurity);
                 io.sockets.in(data.room).emit('Key_socket', response);
                 break
